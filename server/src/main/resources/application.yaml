@@ -1,3 +1,19 @@
 spring:
   application:
     name: Billing-Software
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/billing_software
+    username: root
+    password: Eswar@2004
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+# add aws acces.key,secrrt.key, region and buckent.name
+
+server:
+  servlet:
+    context-path: /api/v1.0
