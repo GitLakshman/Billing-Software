@@ -40,7 +40,7 @@ public class UserController {
             return ResponseEntity.noContent().build();
         }
         catch (Exception ex){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User deletion failed: "+ex.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found: "+ex.getMessage());
         }
     }
 }

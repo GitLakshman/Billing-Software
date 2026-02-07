@@ -3,7 +3,7 @@ package com.lakshman.Billing_Software.controller;
 import com.lakshman.Billing_Software.Util.JwtUtil;
 import com.lakshman.Billing_Software.dto.AuthRequest;
 import com.lakshman.Billing_Software.dto.AuthResponse;
-import com.lakshman.Billing_Software.service.Impl.UserDetailServices;
+import com.lakshman.Billing_Software.service.Impl.AppUserDetailsService;
 import com.lakshman.Billing_Software.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,7 +26,7 @@ public class AuthController {
 
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-    private final UserDetailServices userDetailServices;
+    private final AppUserDetailsService appUserDetailsService;
     private final UserService userService;
 
     private final JwtUtil jwtUtil;
@@ -35,10 +35,10 @@ public class AuthController {
     @PostMapping("/login")
     public AuthResponse login(@RequestBody AuthRequest authRequest) throws Exception {
         authenticate(authRequest.getUserEmail(), authRequest.getUserPassword());
-        final UserDetails userDetails = userDetailServices.loadUserByUsername(authRequest.getUserEmail());
+        final UserDetails userDetails = appUserDetailsService.loadUserByUsername(authRequest.getUserEmail());
         final String jwtToken = jwtUtil.generateToken(userDetails);
         String role = userService.getUserRole(authRequest.getUserEmail());
-        return new AuthResponse(jwtToken, authRequest.getUserEmail(), role);
+        return new AuthResponse(authRequest.getUserEmail(), jwtToken, role);
 
     }
 
@@ -47,9 +47,9 @@ public class AuthController {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userEmail, userPassword));
         }
         catch(DisabledException e){
-            throw new Exception("User was Disables");
+            throw new Exception("User was Disabled");
         }catch(BadCredentialsException e){
-            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email or Password is incorrect");
+            throw   new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email or Password is incorrect");
         }
     }
 

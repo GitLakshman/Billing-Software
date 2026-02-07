@@ -15,14 +15,13 @@ import java.util.Collections;
 
 @Service
 @RequiredArgsConstructor
-public class UserDetailServices implements UserDetailsService {
+public class AppUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
     @Override
     public @NonNull UserDetails loadUserByUsername(@NonNull String userEmail) throws UsernameNotFoundException {
         UserEntity existingUser = userRepository.findByUserEmail(userEmail)
-                .or(() -> userRepository.findByUserEmail(userEmail))
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + userEmail));
         return new User(existingUser.getUserEmail(), existingUser.getUserPassword(),
                 Collections.singleton(new SimpleGrantedAuthority(existingUser.getUserRole())));

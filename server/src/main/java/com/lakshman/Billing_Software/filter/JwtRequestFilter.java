@@ -1,7 +1,7 @@
 package com.lakshman.Billing_Software.filter;
 
 import com.lakshman.Billing_Software.Util.JwtUtil;
-import com.lakshman.Billing_Software.service.Impl.UserDetailServices;
+import com.lakshman.Billing_Software.service.Impl.AppUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,7 +21,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    private final UserDetailServices userDetailServices;
+    private final AppUserDetailsService appUserDetailsService;
     private final JwtUtil jwtUtil;
 
     @Override
@@ -39,7 +39,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         // If authentication is not present, setting authentication
         if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userDetailServices.loadUserByUsername(userEmail);
+            UserDetails userDetails = appUserDetailsService.loadUserByUsername(userEmail);
             if(jwtUtil.validateToken(jwtToken, userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

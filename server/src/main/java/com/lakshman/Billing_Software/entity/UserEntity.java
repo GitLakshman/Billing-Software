@@ -23,6 +23,7 @@ public class UserEntity {
 
     @Column(unique = true)
     private String userId;
+
     @Column(unique = true)
     private String userEmail;
     private String userName;
