@@ -20,13 +20,10 @@ public class UserDetailServices implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
-    public @NonNull UserDetails loadUserByUsername(@NonNull String identifier) throws UsernameNotFoundException {
-        // Try to find by email first, then fall back to userId for backward
-        // compatibility
-        // This handles old JWT tokens that stored userId (UUID) instead of email
-        UserEntity existingUser = userRepository.findByUserEmail(identifier)
-                .or(() -> userRepository.findByUserId(identifier))
-                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + identifier));
+    public @NonNull UserDetails loadUserByUsername(@NonNull String userEmail) throws UsernameNotFoundException {
+        UserEntity existingUser = userRepository.findByUserEmail(userEmail)
+                .or(() -> userRepository.findByUserEmail(userEmail))
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + userEmail));
         return new User(existingUser.getUserEmail(), existingUser.getUserPassword(),
                 Collections.singleton(new SimpleGrantedAuthority(existingUser.getUserRole())));
     }
