@@ -20,10 +20,10 @@ public class CategoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String categoryId;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String categoryName;
 
     private String categoryDescription;

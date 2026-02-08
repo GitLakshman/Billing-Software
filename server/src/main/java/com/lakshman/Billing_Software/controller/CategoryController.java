@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.json.JsonParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,7 +19,6 @@ import java.util.List;
 public class CategoryController {
 
     private final CategoryService categoryService;
-    private final AuthenticationManager authenticationManager;
 
     @PostMapping("/admin/categories")
     public ResponseEntity<CategoryResponse> createCategory(@RequestPart("category") String categoryString, @RequestPart("file") MultipartFile file){
@@ -31,11 +29,11 @@ public class CategoryController {
             return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.createCategory(categoryRequest, file));
         }
         catch (JsonParseException ex){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error occurred while parsing json: "+ex.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error occurred while parsing category json: "+ex.getMessage());
         }
     }
 
-    @GetMapping
+    @GetMapping("/categories")
     public ResponseEntity<List<CategoryResponse>> fetchAllCategories(){
         return ResponseEntity.ok().body(categoryService.fetchAllCategories());
     }

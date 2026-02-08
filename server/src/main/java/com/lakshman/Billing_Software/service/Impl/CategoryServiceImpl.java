@@ -4,6 +4,7 @@ import com.lakshman.Billing_Software.dto.CategoryRequest;
 import com.lakshman.Billing_Software.dto.CategoryResponse;
 import com.lakshman.Billing_Software.entity.CategoryEntity;
 import com.lakshman.Billing_Software.repository.CategoryRepository;
+import com.lakshman.Billing_Software.repository.ItemRepository;
 import com.lakshman.Billing_Software.service.CategoryService;
 import com.lakshman.Billing_Software.service.FileUploadService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final FileUploadService fileUploadService;
+    private final ItemRepository itemRepository;
 
     @Override
     public CategoryResponse createCategory(CategoryRequest categoryRequest, MultipartFile file) {
@@ -47,12 +49,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     private CategoryResponse convertToResponse(CategoryEntity newCategory) {
+        Integer itemsCount = itemRepository.countByItemCategoryId(newCategory.getId());
         return CategoryResponse.builder()
                 .categoryId(newCategory.getCategoryId())
                 .categoryName(newCategory.getCategoryName())
                 .categoryDescription(newCategory.getCategoryDescription())
                 .categoryBgColor(newCategory.getCategoryBgColor())
                 .categoryImageUrl(newCategory.getCategoryImageUrl())
+                .items(itemsCount)
                 .categoryCreatedAt(newCategory.getCategoryCreatedAt())
                 .categoryUpdatedAt(newCategory.getCategoryUpdatedAt())
                 .build();
