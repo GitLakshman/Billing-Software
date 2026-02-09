@@ -4,6 +4,7 @@ import Explore from "../pages/Explore";
 import ManageItems from "../pages/ManageItems";
 import ManageCategories from "../pages/ManageCategories";
 import ManageUsers from "../pages/ManageUsers";
+import Login from "../pages/Login";
 
 const AppRouter = () => {
   return (
@@ -13,6 +14,7 @@ const AppRouter = () => {
       <Route path="/items" element={<ManageItems />} />
       <Route path="/category" element={<ManageCategories />} />
       <Route path="/users" element={<ManageUsers />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/" element={<Dashboard />} />
     </Routes>
   );

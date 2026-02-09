@@ -1,13 +1,15 @@
 import { ToastContainer } from "react-toastify";
-import MenuBar from "./components/MenuBar";
 import AppRouter from "./routers/AppRouter";
+import MenuBar from "./components/MenuBar";
+import { useLocation } from "react-router-dom";
 
 const App = () => {
+  const location = useLocation();
   return (
     <>
-      <MenuBar />
+      {location.pathname !== "/login" && <MenuBar />}
       <ToastContainer
-        position="bottom-right"
+        position="top-right"
         autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -15,7 +17,7 @@ const App = () => {
         rtl={false}
         pauseOnFocusLoss
         draggable
-        pauseOnHover
+        pauseOnHover={false}
         theme="light"
       />
       <AppRouter />

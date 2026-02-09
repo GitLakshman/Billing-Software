@@ -63,9 +63,9 @@ const CategoryList = () => {
                     className="w-15 h-15 border-2 p-1 bg-gray-200 border-white rounded-lg"
                   />
                 </div>
-                <div className="grow">
+                <div className="flex flex-col mr-auto">
                   <h5 className="mb-1 text-white">{category.categoryName}</h5>
-                  <p className="text-white">5 Items</p>
+                  <p className="text-white">{category.itemsCount} Items</p>
                 </div>
                 <div>
                   <button
