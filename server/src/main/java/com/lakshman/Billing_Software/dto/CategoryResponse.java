@@ -13,7 +13,7 @@ public class CategoryResponse {
     private String categoryDescription;
     private String categoryBgColor;
     private String categoryImageUrl;
-    private Integer items;
+    private Integer itemsCount;
     private Timestamp categoryCreatedAt;
     private Timestamp categoryUpdatedAt;
 }

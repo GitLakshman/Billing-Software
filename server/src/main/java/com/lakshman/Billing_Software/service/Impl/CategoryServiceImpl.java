@@ -56,7 +56,7 @@ public class CategoryServiceImpl implements CategoryService {
                 .categoryDescription(newCategory.getCategoryDescription())
                 .categoryBgColor(newCategory.getCategoryBgColor())
                 .categoryImageUrl(newCategory.getCategoryImageUrl())
-                .items(itemsCount)
+                .itemsCount(itemsCount)
                 .categoryCreatedAt(newCategory.getCategoryCreatedAt())
                 .categoryUpdatedAt(newCategory.getCategoryUpdatedAt())
                 .build();
