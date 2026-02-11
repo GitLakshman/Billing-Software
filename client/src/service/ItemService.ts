@@ -8,15 +8,15 @@ export interface ItemRequest {
 }
 
 export interface ItemResponse {
-  itemId: string;
-  itemName: string;
-  itemPrice: string;
-  categoryId: string;
-  categoryName: string;
-  itemImageUrl: string;
-  itemDescription: string;
-  itemCreatedAt: string;
-  itemUpdatedAt: string;
+  itemId?: string;
+  itemName?: string;
+  itemPrice?: string;
+  categoryId?: string;
+  categoryName?: string;
+  itemImageUrl?: string;
+  itemDescription?: string;
+  itemCreatedAt?: string;
+  itemUpdatedAt?: string;
 }
 
 export const addItem = async (item: FormData) => {

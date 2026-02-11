@@ -18,8 +18,19 @@ export const AppContextProvider = ({ children }: Props) => {
     userRole: null as string | null,
   });
 
+  const setAuthData = (token: string, role: string) => {
+    setAuth({ token: token, userRole: role });
+  };
+
+  const token = localStorage.getItem("token");
+  const userRole = localStorage.getItem("userRole");
+
   useEffect(() => {
     async function loadCategoriesItems() {
+      if (token && userRole) {
+        setAuthData(token, userRole);
+      }
+
       try {
         const categorysResponse = await getCategories();
         const itemsResponse = await getItems();
@@ -30,12 +41,10 @@ export const AppContextProvider = ({ children }: Props) => {
         console.error("Failed to load categories or items:", error);
       }
     }
-    loadCategoriesItems();
-  }, []);
-
-  const setAuthData = (token: string, role: string) => {
-    setAuth({ token: token, userRole: role });
-  };
+    if (token) {
+      loadCategoriesItems();
+    }
+  }, [token, userRole]);
 
   const contextValue: AppContextType = {
     categories,

@@ -70,7 +70,7 @@ const CategoryForm: FC = () => {
   };
 
   return (
-    <div className="mx-2 mt-2 p-4 max-w-full bg-white rounded-md text-black">
+    <div className="mx-2 mt-2 p-4 max-w-5/6 bg-white rounded-md text-black">
       <form onSubmit={onSubmitHandler}>
         <div className="mb-4 w-12">
           <label htmlFor="image">

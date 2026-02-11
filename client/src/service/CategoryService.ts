@@ -7,14 +7,14 @@ export interface CategoryRequest {
 }
 
 export interface CategoryResponse {
-  categoryId: string;
-  categoryName: string;
-  categoryDescription: string;
-  categoryBgColor: string;
-  categoryImageUrl: string;
-  categoryCreatedAt: string;
-  categoryUpdatedAt: string;
-  itemsCount: number;
+  categoryId?: string;
+  categoryName?: string;
+  categoryDescription?: string;
+  categoryBgColor?: string;
+  categoryImageUrl?: string;
+  categoryCreatedAt?: string;
+  categoryUpdatedAt?: string;
+  itemsCount?: number;
 }
 
 export const addCategory = async (category: FormData) =>

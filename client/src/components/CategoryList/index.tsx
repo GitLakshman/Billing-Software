@@ -7,8 +7,10 @@ const CategoryList = () => {
   const { categories, setCategories } = useContext(AppContext);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filterCategories = categories.filter((categoty) =>
-    categoty.categoryName.toLowerCase().includes(searchTerm.toLowerCase()),
+  const filterCategories = categories.filter(
+    (category) =>
+      category.categoryName?.toLowerCase().includes(searchTerm.toLowerCase()) ??
+      "",
   );
 
   const deleteByCategoryId = async (id: string) => {
@@ -71,7 +73,9 @@ const CategoryList = () => {
                   <button
                     type="submit"
                     className="bg-red-500 text-white p-1 rounded-sm hover:opacity-95 transition-colors duration-200"
-                    onClick={() => deleteByCategoryId(category.categoryId)}
+                    onClick={() =>
+                      deleteByCategoryId(category.categoryId ?? "")
+                    }
                   >
                     <Trash2Icon />
                   </button>

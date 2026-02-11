@@ -9,8 +9,9 @@ import {
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { assets } from "../../assets/assets";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { AppContext } from "../../context";
 
 const navigation = [
   { name: "DASHBOARD", path: "/dashboard" },
@@ -26,6 +27,16 @@ function classNames(...classes: string[]) {
 
 export default function NavigationBar() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { setAuthData } = useContext(AppContext);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userRole");
+    setAuthData("", "");
+    navigate("/login");
+  };
+
   return (
     <Disclosure as="nav" className="relative bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -81,7 +92,7 @@ export default function NavigationBar() {
                 <span className="sr-only">Open user menu</span>
                 <img
                   alt=""
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  src={assets.profile}
                   className="size-8 rounded-full bg-gray-800 outline -outline-offset-1 outline-white/10"
                 />
               </MenuButton>
@@ -95,14 +106,6 @@ export default function NavigationBar() {
                     href="#"
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                   >
-                    Your profile
-                  </a>
-                </MenuItem>
-                <MenuItem>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                  >
                     Settings
                   </a>
                 </MenuItem>
@@ -110,6 +113,16 @@ export default function NavigationBar() {
                   <a
                     href="#"
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                  >
+                    Activity Log
+                  </a>
+                </MenuItem>
+                <hr className="my-1 border-t border-gray-200" />
+                <MenuItem>
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                    onClick={logout}
                   >
                     Sign out
                   </a>

@@ -43,7 +43,7 @@ const ItemForm = () => {
         setCategories(
           categories.map((category) =>
             category.categoryId === res.data.categoryId
-              ? { ...category, itemsCount: category.itemsCount + 1 }
+              ? { ...category, itemsCount: (category.itemsCount ?? 0) + 1 }
               : category,
           ),
         );
