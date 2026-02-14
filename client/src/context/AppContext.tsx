@@ -17,6 +17,38 @@ export const AppContextProvider = ({ children }: Props) => {
     token: null as string | null,
     userRole: null as string | null,
   });
+  const [cartItems, setCartItems] = useState<ItemResponse[]>([]);
+
+  const addToCart = (item: ItemResponse) => {
+    const existingCartItem = cartItems.find(
+      (cartItem) => cartItem.itemName === item.itemName,
+    );
+    if (existingCartItem) {
+      setCartItems(
+        cartItems.map((cartItem) =>
+          cartItem.itemName === item.itemName
+            ? { ...cartItem, itemsCount: (cartItem.itemsCount || 0) + 1 }
+            : cartItem,
+        ),
+      );
+    } else {
+      setCartItems([...cartItems, { ...item, itemsCount: 1 }]);
+    }
+  };
+
+  const removeFromCart = (itemId: string) => {
+    setCartItems(cartItems.filter((cartItem) => cartItem.itemId !== itemId));
+  };
+
+  const updateItemCount = (itemId: string, count: number) => {
+    setCartItems(
+      cartItems.map((cartItem) =>
+        cartItem.itemId === itemId
+          ? { ...cartItem, itemsCount: count }
+          : cartItem,
+      ),
+    );
+  };
 
   const setAuthData = (token: string, role: string) => {
     setAuth({ token: token, userRole: role });
@@ -53,6 +85,10 @@ export const AppContextProvider = ({ children }: Props) => {
     setItems,
     auth,
     setAuthData,
+    addToCart,
+    cartItems,
+    removeFromCart,
+    updateItemCount,
   };
 
   return (

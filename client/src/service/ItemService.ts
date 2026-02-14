@@ -11,6 +11,7 @@ export interface ItemResponse {
   itemId?: string;
   itemName?: string;
   itemPrice?: string;
+  itemsCount?: number;
   categoryId?: string;
   categoryName?: string;
   itemImageUrl?: string;

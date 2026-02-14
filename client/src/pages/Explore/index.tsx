@@ -9,6 +9,8 @@ import CartSummary from "../../components/Explore/CartSummary";
 const Explore = () => {
   const { categories } = useContext(AppContext);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [customerName, setCustomerName] = useState<string>("");
+  const [customerPhone, setCustomerPhone] = useState<string>("");
 
   console.log(categories);
   return (
@@ -36,7 +38,12 @@ const Explore = () => {
       <div className="right-list-box">
         {/* Customer Form Container */}
         <div style={{ height: "15%" }}>
-          <CustomerForm />
+          <CustomerForm
+            customerName={customerName}
+            customerPhone={customerPhone}
+            setCustomerName={setCustomerName}
+            setCustomerPhone={setCustomerPhone}
+          />
         </div>
         <hr className="my-3 border-t border-gray-600" />
         {/* Cart Items Container */}

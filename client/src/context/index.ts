@@ -12,6 +12,10 @@ export interface AppContextType {
     userRole: string | null;
   };
   setAuthData: (token: string, role: string) => void;
+  addToCart: (item: ItemResponse) => void;
+  cartItems: ItemResponse[];
+  removeFromCart: (itemId: string) => void;
+  updateItemCount: (itemId: string, count: number) => void;
 }
 
 const defaultValue: AppContextType = {
@@ -24,6 +28,10 @@ const defaultValue: AppContextType = {
     userRole: null,
   },
   setAuthData: () => {},
+  addToCart: () => {},
+  cartItems: [],
+  removeFromCart: () => {},
+  updateItemCount: () => {}, 
 };
 
 export const AppContext = createContext<AppContextType>(defaultValue);

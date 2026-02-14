@@ -1,9 +1,13 @@
 import { PlusIcon, ShoppingCartIcon } from "lucide-react";
 import type { ItemResponse } from "../../../service/ItemService";
+import { useContext } from "react";
+import { AppContext } from "../../../context";
 
 const Item = ({ itemId, itemName, itemImageUrl, itemPrice }: ItemResponse) => {
-  const handleOnClick = () => {
-    console.log("Item clicked", itemId);
+  const { addToCart } = useContext(AppContext);
+
+  const handleAddToCart = () => {
+    addToCart({ itemId, itemName, itemsCount: 1, itemPrice });
   };
 
   return (
@@ -25,7 +29,7 @@ const Item = ({ itemId, itemName, itemImageUrl, itemPrice }: ItemResponse) => {
         <ShoppingCartIcon className="text-xl text-yellow-500"></ShoppingCartIcon>
         <button
           className="bg-green-600 text-white text-sm p-1 rounded hover:bg-green-700"
-          onClick={handleOnClick}
+          onClick={handleAddToCart}
         >
           <PlusIcon width={15} height={15} />
         </button>
