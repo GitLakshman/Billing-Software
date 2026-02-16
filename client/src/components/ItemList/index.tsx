@@ -10,7 +10,7 @@ const ItemList = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const filteredItems = items.filter((item) =>
-    item.itemName.toLowerCase().includes(searchTerm.toLowerCase()),
+    (item.itemName ?? "").toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const deleteByItemId = async (id: string) => {
@@ -21,9 +21,9 @@ const ItemList = () => {
         setItems(updatedItems);
         setCategories(
           categories.map((category) =>
-            category.itemsCount > 0 &&
+            (category.itemsCount ?? 0) > 0 &&
             category.categoryId === updatedItems[0]?.categoryId
-              ? { ...category, itemsCount: category.itemsCount - 1 }
+              ? { ...category, itemsCount: (category.itemsCount ?? 0) - 1 }
               : category,
           ),
         );
@@ -74,7 +74,7 @@ const ItemList = () => {
                 <button
                   type="submit"
                   className="bg-red-500 text-white p-1 rounded-sm hover:opacity-95 transition-colors duration-200"
-                  onClick={() => deleteByItemId(item.itemId)}
+                  onClick={() => deleteByItemId(item.itemId ?? "")}
                 >
                   <Trash2Icon />
                 </button>

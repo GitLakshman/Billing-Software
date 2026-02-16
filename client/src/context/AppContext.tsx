@@ -50,6 +50,10 @@ export const AppContextProvider = ({ children }: Props) => {
     );
   };
 
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
   const setAuthData = (token: string, role: string) => {
     setAuth({ token: token, userRole: role });
   };
@@ -89,6 +93,7 @@ export const AppContextProvider = ({ children }: Props) => {
     cartItems,
     removeFromCart,
     updateItemCount,
+    clearCart,
   };
 
   return (

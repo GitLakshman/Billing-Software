@@ -16,6 +16,7 @@ export interface AppContextType {
   cartItems: ItemResponse[];
   removeFromCart: (itemId: string) => void;
   updateItemCount: (itemId: string, count: number) => void;
+  clearCart: () => void;
 }
 
 const defaultValue: AppContextType = {
@@ -32,6 +33,7 @@ const defaultValue: AppContextType = {
   cartItems: [],
   removeFromCart: () => {},
   updateItemCount: () => {}, 
+  clearCart: () => {}
 };
 
 export const AppContext = createContext<AppContextType>(defaultValue);

@@ -1,4 +1,4 @@
-import axios from "axios";
+import apiClient from "./apiClient";
 import type { AuthRequest } from "../pages/Login";
 
 export interface AuthResponse {
@@ -8,5 +8,5 @@ export interface AuthResponse {
 }
 
 export const login = async (credentials: AuthRequest) => {
-  return await axios.post("http://localhost:8080/api/v1.0/login", credentials);
+  return await apiClient.post("/login", credentials);
 };

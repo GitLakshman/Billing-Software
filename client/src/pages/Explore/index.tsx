@@ -58,7 +58,12 @@ const Explore = () => {
           className="flex-[0.3] border-t border-gray-400"
           style={{ height: "30%" }}
         >
-          <CartSummary />
+          <CartSummary
+            customerName={customerName}
+            customerPhone={customerPhone}
+            setCustomerName={setCustomerName}
+            setCustomerPhone={setCustomerPhone}
+          />
         </div>
       </div>
     </div>

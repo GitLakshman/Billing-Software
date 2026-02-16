@@ -1,4 +1,4 @@
-import axios from "axios";
+import apiClient from "./apiClient";
 
 export interface ItemRequest {
   itemName: string;
@@ -21,25 +21,13 @@ export interface ItemResponse {
 }
 
 export const addItem = async (item: FormData) => {
-  return await axios.post<ItemResponse>(
-    "http://localhost:8080/api/v1.0/admin/items",
-    item,
-    { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } },
-  );
+  return await apiClient.post<ItemResponse>("/admin/items", item);
 };
 
 export const deleteItem = async (itemId: string) => {
-  return await axios.delete<string>(
-    `http://localhost:8080/api/v1.0/admin/items/${itemId}`,
-    { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } },
-  );
+  return await apiClient.delete<string>(`/admin/items/${itemId}`);
 };
 
 export const getItems = async () => {
-  return await axios.get<ItemResponse[]>(
-    "http://localhost:8080/api/v1.0/items",
-    {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    },
-  );
+  return await apiClient.get<ItemResponse[]>("/items");
 };
