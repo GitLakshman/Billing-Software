@@ -2,6 +2,7 @@ package com.lakshman.Billing_Software.service.Impl;
 
 import com.lakshman.Billing_Software.dto.OrderRequest;
 import com.lakshman.Billing_Software.dto.OrderResponse;
+import com.lakshman.Billing_Software.dto.PaymentVerificationRequest;
 import com.lakshman.Billing_Software.embeds.PaymentDetails;
 import com.lakshman.Billing_Software.entity.OrderEntity;
 import com.lakshman.Billing_Software.entity.OrderItemEntity;
@@ -93,7 +94,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void deleteOrder(String orderId) {
         OrderEntity existingOrder = orderRepository.findByOrderId(orderId)
-                .orElseThrow(()-> new RuntimeException("Order not found: "+orderId));
+                .orElseThrow(() -> new RuntimeException("Order not found: " + orderId));
         orderRepository.delete(existingOrder);
     }
 
@@ -103,5 +104,31 @@ public class OrderServiceImpl implements OrderService {
                 .stream()
                 .map(this::convertToResponse)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public OrderResponse verifyPayment(PaymentVerificationRequest paymentVerificationRequest) {
+        OrderEntity existingOrder = orderRepository.findByOrderId(paymentVerificationRequest.getOrderId())
+                .orElseThrow(() -> new RuntimeException("Order not found: " + paymentVerificationRequest.getOrderId()));
+
+        if (!verifyRazorpaySignature(paymentVerificationRequest.getRazorpayOrderId(),
+                paymentVerificationRequest.getRazorpayPaymentId(),
+                paymentVerificationRequest.getRazorpaySignature())) {
+            throw new RuntimeException("Payment Verification is failed");
+        }
+
+        PaymentDetails paymentDetails = existingOrder.getPaymentDetails();
+        paymentDetails.setRazorpayOrderId(paymentVerificationRequest.getRazorpayOrderId());
+        paymentDetails.setRazorpayPaymentId(paymentVerificationRequest.getRazorpayPaymentId());
+        paymentDetails.setRazorpaySignature(paymentVerificationRequest.getRazorpaySignature());
+        paymentDetails.setPaymentStatus(PaymentStatus.COMPLETED);
+
+        existingOrder = orderRepository.save(existingOrder);
+
+        return convertToResponse(existingOrder);
+    }
+
+    private boolean verifyRazorpaySignature(String razorpayOrderId, String razorpayPaymentId, String razorpaySignature) {
+        return true;
     }
 }
