@@ -13,6 +13,7 @@ import {
   type PaymentVerificationRequest,
 } from "../../../service/PaymentService";
 import { AppConstants } from "../../../constsants";
+import Recepit from "../../Recepit";
 
 type PaymentMode = "cash" | "upi";
 
@@ -227,6 +228,7 @@ const CartSummary = ({
       }
     } catch (error) {
       console.log(error);
+
       toast.error("Payment failed");
     }
   };
@@ -269,8 +271,17 @@ const CartSummary = ({
           onClick={placeOrder}
           disabled={isprocessing || !orderDetails}
         >
-          {isprocessing ? "Processing..." : "Place Order"}
+          Place Order
         </button>
+        {showPopUp && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+            <Recepit
+              orderDetails={orderDetails!}
+              onClose={() => setShowPopUp(false)}
+              onPrint={handlePrintReceipt}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -24,9 +24,9 @@ const ItemsDisplay = ({ selectedCategory }: { selectedCategory: string }) => {
           <SearchBox onSearch={setSearchText} />
         </div>
       </div>
-      <div className="flex flex-wrap gap-3">
+      <div className="flex gap-3 ">
         {filteredItems.map((item, index) => (
-          <div key={index} className="md:w-1/3 sm:w-1/2">
+          <div key={index} className="w-full md:w-1/3 sm:w-1/2">
             <Item
               itemId={item.itemId}
               itemName={item.itemName}

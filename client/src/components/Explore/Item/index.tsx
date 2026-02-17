@@ -11,7 +11,7 @@ const Item = ({ itemId, itemName, itemImageUrl, itemPrice }: ItemResponse) => {
   };
 
   return (
-    <div className="flex items-center py-3 px-3 bg-gray-900 rounded-md shadow-sm h-full hover:scale-105 transition-all duration-150 cursor-pointer">
+    <div className="flex items-center p-3 bg-gray-900 rounded-md shadow-sm h-full hover:scale-105 transition-all duration-150 cursor-pointer">
       <div className="relative mr-4">
         <img
           src={itemImageUrl}
