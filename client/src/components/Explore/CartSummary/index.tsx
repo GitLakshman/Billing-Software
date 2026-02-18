@@ -251,14 +251,14 @@ const CartSummary = ({
       </div>
       <div className="flex gap-3">
         <button
-          className="flex-1 py-1 bg-green-500 rounded"
+          className="flex-1 py-1 bg-green-500 rounded cursor-pointer"
           onClick={() => completePayment("cash")}
           disabled={isprocessing}
         >
           {isprocessing ? "Processing..." : "Cash"}
         </button>
         <button
-          className="flex-1 py-1 bg-blue-500 rounded"
+          className="flex-1 py-1 bg-blue-500 rounded cursor-pointer"
           onClick={() => completePayment("upi")}
           disabled={isprocessing}
         >
@@ -267,7 +267,7 @@ const CartSummary = ({
       </div>
       <div className="flex gap-3 mt-2">
         <button
-          className="flex-1 py-1 bg-yellow-500 rounded"
+          className="flex-1 py-1 bg-yellow-500 rounded cursor-pointer"
           onClick={placeOrder}
           disabled={isprocessing || !orderDetails}
         >

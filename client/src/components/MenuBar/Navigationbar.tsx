@@ -19,6 +19,7 @@ const navigation = [
   { name: "MANAGE ITEMS", path: "/items" },
   { name: "MANAGE CATEGORIES", path: "/category" },
   { name: "MANAGE USERS", path: "/users" },
+  { name: "ORDER HISTORY", path: "/orders" },
 ];
 
 function classNames(...classes: string[]) {

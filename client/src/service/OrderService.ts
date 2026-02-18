@@ -30,7 +30,7 @@ export interface OrderResponse {
     paymentDetails: PaymentDetails;
 }
 
-interface OrderItemResponse{
+export interface OrderItemResponse{
     itemId : string;
     itemName: string;
     itemPrice: number;

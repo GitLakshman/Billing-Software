@@ -5,6 +5,7 @@ import ManageItems from "../pages/ManageItems";
 import ManageCategories from "../pages/ManageCategories";
 import ManageUsers from "../pages/ManageUsers";
 import Login from "../pages/Login";
+import OrderHistory from "../pages/OrderHistory";
 
 const AppRouter = () => {
   return (
@@ -14,6 +15,7 @@ const AppRouter = () => {
       <Route path="/items" element={<ManageItems />} />
       <Route path="/category" element={<ManageCategories />} />
       <Route path="/users" element={<ManageUsers />} />
+      <Route path="/orders" element={<OrderHistory />} />
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Dashboard />} />
     </Routes>
