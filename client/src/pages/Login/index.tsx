@@ -61,8 +61,8 @@ const Login: FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[url('./assets/login-bg.jpg')] bg-cover backdrop-blur-sm bg-center bg-no-repeat flex items-center justify-center">
-      <div className="bg-white p-4 rounded-lg shadow-md w-full max-w-100">
+    <div className="min-h-screen bg-[url('./assets/login-bg.jpg')] bg-cover backdrop-blur-sm bg-center bg-no-repeat flex items-center justify-center px-4">
+      <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-2 text-center">Login</h2>
         <p className="text-center">Login to access your account</p>
 

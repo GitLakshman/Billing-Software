@@ -68,11 +68,11 @@ const Recepit = ({
           <>
             <p>
               <strong>Razorpay Order ID:</strong>{" "}
-              {orderDetails.paymentDetails.razorpayOrderId}
+              {orderDetails.paymentDetails?.razorpayOrderId ?? "N/A"}
             </p>
             <p>
               <strong>Razorpay Payment ID:</strong>{" "}
-              {orderDetails.paymentDetails.razorpayPaymentId}
+              {orderDetails.paymentDetails?.razorpayPaymentId ?? "N/A"}
             </p>
           </>
         )}

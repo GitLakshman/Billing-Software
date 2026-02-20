@@ -102,6 +102,7 @@ const ItemForm = () => {
               className="border border-gray-400 rounded-sm px-2 py-1"
               onChange={onChangeHandler}
               value={data.itemName}
+              required
             />
           </div>
           <div className="flex flex-col gap-1 mb-4">
@@ -112,10 +113,11 @@ const ItemForm = () => {
               className="border border-gray-400 rounded-sm px-2 py-1"
               onChange={onChangeHandler}
               value={data.categoryId}
+              required
             >
               <option value="">-- Select Category --</option>
               {categories.map((category, index) => (
-                <option key={index} value={category.categoryId}>
+                <option key={index} value={category.categoryId} aria-required>
                   {category.categoryName}
                 </option>
               ))}
@@ -132,6 +134,7 @@ const ItemForm = () => {
               className="border border-gray-400 rounded-sm px-2 py-1"
               onChange={onChangeHandler}
               value={data.itemPrice}
+              required
             />
           </div>
           <div className="flex flex-col gap-1 mb-4">

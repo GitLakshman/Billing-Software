@@ -9,26 +9,17 @@ import {
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { assets } from "../../assets/assets";
-import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import { AppContext } from "../../context";
-
-const navigation = [
-  { name: "DASHBOARD", path: "/dashboard" },
-  { name: "EXPLORE", path: "/explore" },
-  { name: "MANAGE ITEMS", path: "/items" },
-  { name: "MANAGE CATEGORIES", path: "/category" },
-  { name: "MANAGE USERS", path: "/users" },
-  { name: "ORDER HISTORY", path: "/orders" },
-];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function NavigationBar() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const { setAuthData } = useContext(AppContext);
+  const location = useLocation();
+  const { setAuthData, auth } = useContext(AppContext);
   const navigate = useNavigate();
 
   const logout = () => {
@@ -37,6 +28,25 @@ export default function NavigationBar() {
     setAuthData("", "");
     navigate("/login");
   };
+
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
+
+  const isAdmin = auth.userRole === "ROLE_ADMIN";
+
+  const navigation = [
+    { name: "DASHBOARD", path: "/dashboard" },
+    { name: "EXPLORE", path: "/explore" },
+    ...(isAdmin
+      ? [
+          { name: "MANAGE ITEMS", path: "/items" },
+          { name: "MANAGE CATEGORIES", path: "/category" },
+          { name: "MANAGE USERS", path: "/users" },
+        ]
+      : []),
+    { name: "ORDER HISTORY", path: "/orders" },
+  ];
 
   return (
     <Disclosure as="nav" className="relative bg-gray-800">
@@ -67,14 +77,13 @@ export default function NavigationBar() {
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
-                {navigation.map((item, index) => (
+                {navigation.map((item) => (
                   <Link
                     key={item.name}
                     to={item.path}
-                    onClick={() => setCurrentIndex(index)}
                     className={classNames(
-                      currentIndex === index
-                        ? "bg-gray-900 text-white"
+                      isActive(item.path)
+                        ? "bg-gray-600 text-white"
                         : "text-gray-300 hover:bg-white/5 hover:text-white",
                       "rounded-md px-3 py-2 text-sm font-medium",
                     )}
@@ -136,13 +145,13 @@ export default function NavigationBar() {
 
       <DisclosurePanel className="sm:hidden">
         <div className="space-y-1 px-2 pt-2 pb-3">
-          {navigation.map((item, index) => (
+          {navigation.map((item) => (
             <DisclosureButton
               key={item.name}
-              as="a"
-              href={item.path}
+              as={Link}
+              to={item.path}
               className={classNames(
-                currentIndex === index
+                isActive(item.path)
                   ? "bg-gray-900 text-white"
                   : "text-gray-300 hover:bg-white/5 hover:text-white",
                 "block rounded-md px-3 py-2 text-base font-medium",

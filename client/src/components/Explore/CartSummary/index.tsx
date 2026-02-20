@@ -197,9 +197,14 @@ const CartSummary = ({
     }
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  interface RazorpaySuccessResponse {
+    razorpay_order_id: string;
+    razorpay_payment_id: string;
+    razorpay_signature: string;
+  }
+
   const verifyPaymentHandler = async (
-    response: any,
+    response: RazorpaySuccessResponse,
     savedOrder: OrderResponse,
   ) => {
     const paymentData: PaymentVerificationRequest = {
@@ -277,7 +282,10 @@ const CartSummary = ({
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
             <Recepit
               orderDetails={orderDetails!}
-              onClose={() => setShowPopUp(false)}
+              onClose={() => {
+                clearAll();
+                setShowPopUp(false);
+              }}
               onPrint={handlePrintReceipt}
             />
           </div>

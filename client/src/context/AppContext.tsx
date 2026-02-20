@@ -58,10 +58,10 @@ export const AppContextProvider = ({ children }: Props) => {
     setAuth({ token: token, userRole: role });
   };
 
-  const token = localStorage.getItem("token");
-  const userRole = localStorage.getItem("userRole");
-
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    const userRole = localStorage.getItem("userRole");
+
     async function loadCategoriesItems() {
       if (token && userRole) {
         setAuthData(token, userRole);
@@ -80,7 +80,7 @@ export const AppContextProvider = ({ children }: Props) => {
     if (token) {
       loadCategoriesItems();
     }
-  }, [token, userRole]);
+  }, []);
 
   const contextValue: AppContextType = {
     categories,

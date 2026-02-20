@@ -5,6 +5,7 @@ import ItemsDisplay from "../../components/Explore/ItemsDisplay";
 import CustomerForm from "../../components/Explore/CustomerForm";
 import CartItems from "../../components/Explore/CartItems";
 import CartSummary from "../../components/Explore/CartSummary";
+import "./index.css";
 
 const Explore = () => {
   const { categories } = useContext(AppContext);
@@ -12,32 +13,28 @@ const Explore = () => {
   const [customerName, setCustomerName] = useState<string>("");
   const [customerPhone, setCustomerPhone] = useState<string>("");
 
-  console.log(categories);
   return (
-    <div className="flex gap-5 p-5 text-white bg-[#2C3335] h-[calc(100vh-5rem)] box-border">
+    <div className="explore-wrapper">
       {/* LeftSide Column */}
-      <div className="left-form-box">
+      <div className="explore-left">
         {/* Categories Row */}
-        <div className="flex-4/12 flex-col" style={{ overflowY: "auto" }}>
+        <div className="explore-categories">
           <CategoryDisplay
             categories={categories}
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
           />
         </div>
-        <hr className="my-5 mx-0 border-gray-600" />
+        <hr className="explore-divider" />
         {/* Items Row */}
-        <div
-          className="flex-8/12 flex-col box-border"
-          style={{ overflowY: "auto" }}
-        >
+        <div className="explore-items">
           <ItemsDisplay selectedCategory={selectedCategory} />
         </div>
       </div>
       {/* RightSide Column */}
-      <div className="right-list-box">
+      <div className="explore-right">
         {/* Customer Form Container */}
-        <div style={{ height: "15%" }}>
+        <div className="explore-customer-form">
           <CustomerForm
             customerName={customerName}
             customerPhone={customerPhone}
@@ -45,19 +42,13 @@ const Explore = () => {
             setCustomerPhone={setCustomerPhone}
           />
         </div>
-        <hr className="my-3 border-t border-gray-600" />
+        <hr className="explore-cart-divider" />
         {/* Cart Items Container */}
-        <div
-          className="rounded-lg "
-          style={{ height: "55%", overflowY: "auto" }}
-        >
+        <div className="explore-cart-items">
           <CartItems />
         </div>
         {/* Cart Summary Container */}
-        <div
-          className="flex-[0.3] border-t border-gray-400"
-          style={{ height: "30%" }}
-        >
+        <div className="explore-cart-summary">
           <CartSummary
             customerName={customerName}
             customerPhone={customerPhone}

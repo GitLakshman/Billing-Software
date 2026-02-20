@@ -61,6 +61,7 @@ const UserForm = ({
             className="border border-gray-400 rounded-sm px-2 py-1"
             onChange={onChangeHandler}
             value={data.userName}
+            required
           />
         </div>
 
@@ -74,6 +75,7 @@ const UserForm = ({
             className="border border-gray-400 rounded-sm px-2 py-1"
             onChange={onChangeHandler}
             value={data.userEmail}
+            required
           />
         </div>
 
@@ -87,6 +89,7 @@ const UserForm = ({
             className="border border-gray-400 rounded-sm px-2 py-1"
             onChange={onChangeHandler}
             value={data.userPassword}
+            required
           />
         </div>
         <div className="mb-4">

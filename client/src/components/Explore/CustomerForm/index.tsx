@@ -25,6 +25,7 @@ const CustomerForm = ({
             className="px-2 py-1 border-none focus:ring-1 focus:ring-blue-400 focus:outline-none bg-amber-50 text-gray-700 rounded-sm"
             onChange={(e) => setCustomerName(e.target.value)}
             value={customerName}
+            required
           />
         </div>
       </div>
@@ -40,6 +41,7 @@ const CustomerForm = ({
             className="px-2 py-1 border-none focus:ring-1 focus:ring-blue-400 focus:outline-none bg-amber-50 text-gray-700 rounded-sm"
             onChange={(e) => setCustomerPhone(e.target.value)}
             value={customerPhone}
+            required
           />
         </div>
       </div>

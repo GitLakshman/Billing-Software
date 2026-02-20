@@ -102,6 +102,7 @@ const CategoryForm: FC = () => {
             className="border border-gray-400 rounded-sm px-2 py-1"
             onChange={onChangeHandler}
             value={data.categoryName}
+            required
           />
         </div>
         <div className="flex flex-col gap-1 mb-4">
