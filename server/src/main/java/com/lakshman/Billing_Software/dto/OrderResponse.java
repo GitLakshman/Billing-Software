@@ -20,7 +20,7 @@ public class OrderResponse {
     private String customerPhone;
     private List<OrderItemResponse> items;
     private Double totalAmount;
-    private Double tax;
+    private Double discount;
     private Double grandTotal;
     private PaymentDetails paymentDetails;
     private PaymentMethod paymentMethod;

@@ -16,7 +16,7 @@ public class OrderRequest {
     private String customerPhone;
     private List<OrderItemRequest> cartItems;
     private Double totalAmount;
-    private Double tax;
+    private Double discount;
     private Double grandTotal;
     private String paymentMethod;
 

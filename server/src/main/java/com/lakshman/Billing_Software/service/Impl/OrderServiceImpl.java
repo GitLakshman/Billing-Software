@@ -54,7 +54,7 @@ public class OrderServiceImpl implements OrderService {
                 .customerName(newOrder.getCustomerName())
                 .customerPhone(newOrder.getCustomerPhone())
                 .totalAmount(newOrder.getTotalAmount())
-                .tax(newOrder.getTax())
+                .discount(newOrder.getDiscount())
                 .grandTotal(newOrder.getGrandTotal())
                 .paymentMethod(newOrder.getPaymentMethod())
                 .paymentDetails(newOrder.getPaymentDetails())
@@ -88,7 +88,7 @@ public class OrderServiceImpl implements OrderService {
                 .customerName(orderRequest.getCustomerName())
                 .customerPhone(orderRequest.getCustomerPhone())
                 .totalAmount(orderRequest.getTotalAmount())
-                .tax(orderRequest.getTax())
+                .discount(orderRequest.getDiscount())
                 .grandTotal(orderRequest.getGrandTotal())
                 .paymentMethod(PaymentMethod.valueOf(orderRequest.getPaymentMethod()))
                 .build();

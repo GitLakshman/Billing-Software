@@ -5,14 +5,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>4.0.2</version>
+		<version>4.0.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.lakshman</groupId>
 	<artifactId>Billing-Software</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Billing-Software</name>
-	<description>Billing Application for Retailer Store</description>
+	<name> SVVMPC Billing-Software</name>
+	<description>SRI VENKATESWARA VETERINARY MEDICINES AND PET CARE</description>
 	<url/>
 	<licenses>
 		<license/>

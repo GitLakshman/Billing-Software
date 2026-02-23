@@ -29,7 +29,7 @@ public class OrderEntity {
     private String customerName;
     private String customerPhone;
     private Double totalAmount;
-    private Double tax;
+    private Double discount;
     private Double grandTotal;
     private LocalDateTime orderCreatedAt;
 
