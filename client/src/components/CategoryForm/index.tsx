@@ -25,9 +25,7 @@ const CategoryForm: FC = () => {
     categoryBgColor: "#2c2c2c",
   });
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  useEffect(() => {}, [data]);
 
   const onChangeHandler = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,

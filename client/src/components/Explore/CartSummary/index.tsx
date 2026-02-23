@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { AppContext } from "../../../context";
 import { toast } from "react-toastify";
+import "./style.css";
 import {
   createOrder,
   deleteOrder,
@@ -12,8 +13,9 @@ import {
   verifyPayment,
   type PaymentVerificationRequest,
 } from "../../../service/PaymentService";
-import { AppConstants } from "../../../constsants";
+import { AppConstants, DiscountConstants } from "../../../constsants";
 import Recepit from "../../Recepit";
+import { PlusCircle } from "lucide-react";
 
 type PaymentMode = "cash" | "upi";
 
@@ -45,11 +47,20 @@ const CartSummary = ({
   const [isprocessing, setIsProcessing] = useState(false);
   const [orderDetails, setOrderDetails] = useState<OrderResponse | null>(null);
   const [showPopUp, setShowPopUp] = useState(false);
+  const [showDiscountDropdown, setShowDiscountDropdown] = useState(false);
+  const [selectedDiscountKey, setSelectedDiscountKey] = useState<
+    keyof typeof DiscountConstants | null
+  >(null);
+
+  const discount = selectedDiscountKey
+    ? DiscountConstants[selectedDiscountKey]
+    : 0;
 
   const clearAll = () => {
     setCustomerName("");
     setCustomerPhone("");
     clearCart();
+    setSelectedDiscountKey("NONE");
   };
 
   const placeOrder = () => {
@@ -67,8 +78,8 @@ const CartSummary = ({
     0,
   );
 
-  const tax = totalAmount * 0.01;
-  const grandTotal = totalAmount + tax;
+  const grandTotal =
+    cartItems.length > 0 ? totalAmount - (discount / 100) * totalAmount : 0;
 
   const loadRazorpayScript = (): Promise<boolean> => {
     return new Promise((resolve) => {
@@ -105,6 +116,11 @@ const CartSummary = ({
       return;
     }
 
+    if (discount === 0) {
+      toast.warning("Please select discount");
+      return;
+    }
+
     const orderData: OrderRequest = {
       customerName,
       customerPhone,
@@ -115,7 +131,7 @@ const CartSummary = ({
         itemsCount: item.itemsCount ?? 0,
       })),
       totalAmount,
-      tax,
+      discount,
       grandTotal,
       paymentMethod: paymentMode.toUpperCase(),
     };
@@ -245,9 +261,53 @@ const CartSummary = ({
           <span className="font-light">Items Price:</span>
           <span className="font-light">&#8377;{totalAmount.toFixed(2)}</span>
         </div>
-        <div className="flex justify-between mb-2">
-          <span className="font-light">Tax(1%):</span>
-          <span className="font-light">&#8377;{tax.toFixed(2)}</span>
+        <div className="flex justify-between mb-2 relative">
+          <div className="flex items-center gap-1">
+            <span className="font-light">Discount:</span>
+            <span
+              className="cursor-pointer text-blue-400 hover:text-blue-300 transition-colors"
+              onClick={() => setShowDiscountDropdown((prev) => !prev)}
+            >
+              <PlusCircle size={18} />
+            </span>
+            {showDiscountDropdown && (
+              <div className="absolute bottom-5 left-30 z-50 bg-gray-800 border border-gray-600 rounded-lg shadow-xl overflow-y-auto scrollbar-hide max-h-50 min-w-40">
+                <div className=" flex  items-center justify-between px-3 py-2 text-xs text-gray-400 border-b border-gray-700 font-semibold uppercase tracking-wide">
+                  Select Discount
+                  <span
+                    className="cursor-pointer bg-red-500 text-black px-1 rounded-sm"
+                    onClick={() => setShowDiscountDropdown(false)}
+                  >
+                    X
+                  </span>
+                </div>
+                {(
+                  Object.keys(DiscountConstants) as Array<
+                    keyof typeof DiscountConstants
+                  >
+                ).map((key) => (
+                  <li
+                    key={key}
+                    className={`min-w-62 w-full text-left px-3 py-2 text-sm transition-colors hover:bg-gray-700 cursor-pointer ${
+                      selectedDiscountKey === key
+                        ? "bg-blue-600 text-white"
+                        : "text-gray-200"
+                    }`}
+                    onClick={() => {
+                      setSelectedDiscountKey(key);
+                      setShowDiscountDropdown(false);
+                    }}
+                  >
+                    <span className="font-medium">{key}</span>
+                    <span className="ml-2 text-gray-400">
+                      {DiscountConstants[key]}%
+                    </span>
+                  </li>
+                ))}
+              </div>
+            )}
+          </div>
+          <span className="font-light">{discount}%</span>
         </div>
         <div className="flex justify-between mb-2">
           <span className="font-light">Total:</span>

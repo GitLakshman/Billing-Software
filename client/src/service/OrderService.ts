@@ -5,7 +5,7 @@ export interface OrderRequest {
     customerPhone: string;
     cartItems: OrderItemRequest[];
     totalAmount: number;
-    tax: number;
+    discount: number;
     grandTotal: number;
     paymentMethod: string;
 }
@@ -23,7 +23,7 @@ export interface OrderResponse {
     customerPhone: string;
     items: OrderItemResponse[];
     totalAmount: number;
-    tax: number;
+    discount: number;
     grandTotal: number;
     paymentMethod: string;
     orderCreatedAt: string;
