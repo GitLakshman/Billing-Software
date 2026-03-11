@@ -14,6 +14,10 @@ spring:
 
 # add aws acces.key,secrrt.key, region and buckent.name
 
+# add razorpay credentials
+#razorpay.key.id
+#razorpay.key.secret
+
 server:
   servlet:
     context-path: /api/v1.0
